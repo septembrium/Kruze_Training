@@ -1,5 +1,7 @@
 # Linguistic Review: [scope — e.g. UC-003 + related stories]
 
+> **Scope Warning** *(only if applicable)*: No user stories trace to UC-NNN — only the use case was checked. Run `/review-stories UC-NNN` or `/slice-stories`.
+
 ## Summary
 [1–2 sentences: overall clarity, the most important issue, and how many findings per severity]
 
@@ -29,6 +31,8 @@
 |---|---|---|---|
 | L14 | UC-NNN → Step 3 | "…" | "…" |
 
+*Max 5 rows. If more were found: "+ N further suggestions omitted."*
+
 ## Terminology Report (L10)
 | Term used | Glossary term | Locations | Issue | Fix |
 |---|---|---|---|---|
@@ -41,4 +45,9 @@
 - [Term] — used in [locations] → Proposed definition: "…"
 
 ## Open Questions for the Product Owner
-1. [Every rewrite that needs a business decision, collected in one place]
+
+### From findings
+1. [Every rewrite above that needs a business decision]
+
+### Business-rule gaps (not linguistic — no severity)
+1. [Things the document never addresses, e.g. "Which VAT class applies to shipping costs?"]
