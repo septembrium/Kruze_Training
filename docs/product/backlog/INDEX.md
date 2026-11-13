@@ -1,7 +1,7 @@
 # Product Backlog
 
 **Project:** Kruze Coffee & Tea Management System
-**Last Updated:** March 23, 2026
+**Last Updated:** November 13, 2026
 **Product Owner:** Kruze Business Owner
 
 > Navigation index -- story and epic details live in the subfolders alongside this file.
@@ -82,6 +82,7 @@
 - [Story 5.4](./epic-5-price-calculator/story-5.4-price-calculation-tool.md): Price Calculation Tool (~10 weeks)
 - [Epic 6](./epic-6-storefront/epic.md): Storefront Website (~12 weeks)
 - [Epic 7](./epic-7-storefront-account/epic.md): Storefront Account
+- [Epic 9](./epic-9-whatsapp-contact/epic.md): WhatsApp Contact (~10 points, 9.1 → 9.2 → 9.3 → 9.4)
 
 ---
 

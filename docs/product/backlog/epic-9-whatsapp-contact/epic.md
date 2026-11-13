@@ -18,6 +18,10 @@
 ## Delivery Order
 9.1 → 9.2 (smallest usable feature) → 9.3 → 9.4
 
+## Release pairs
+- 9.1 + 9.2 ship together (first visible value for visitors and admin)
+- 9.3 + 9.4 ship together (counts are only visible with 9.4)
+
 ## Dependencies
 - Related UCs: UC-043 — Contact KRUZE via WhatsApp; UC-015 — Configure System Settings (AF-6, EF-4, BR-7–BR-9)
 - No dependency on UC-037 (cookie consent): counting is anonymous by design (owner decision 2026-11-13)
