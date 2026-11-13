@@ -20,7 +20,7 @@
 | [Story 9.1.4](story-9.1.4-checkout-member-attribution.md) | Only the Logged-In Member Earns at Checkout | ~2 | Not Started |
 | [Story 9.1.5](story-9.1.5-points-survive-payment-delays.md) | Points Survive Payment Delays and Failures | ~3 | Not Started |
 | [Story 9.1.6](story-9.1.6-points-balance-history.md) | See My Points Balance and History | ~3 | Not Started |
-| [Story 9.1.7](story-9.1.7-admin-marks-sale-paid.md) | Earn Points When an Admin Marks a Member's Sale Paid | ~2 | Not Started |
+| [Story 9.1.7](story-9.1.7-admin-makes-sale-paid.md) | Earn Points When an Admin Makes a Member's Sale Paid | ~2 | Not Started |
 
 ### Feature 9.2 — Earn points at the POS
 
@@ -34,9 +34,11 @@
 ## Dependency Order
 
 ```
-9.1.1 -> [9.1.3 + 9.1.4 + 9.1.6, same release] -> 9.1.5 -> 9.1.7 and 9.2.2 (parallel) -> 9.2.1 -> 9.2.3 -> 9.2.4
-          9.1.4 -> 9.1.7
-          9.1.4 -> 9.2.2
+9.1.1 -> [9.1.3 + 9.1.4 + 9.1.6, same release]
+[release] -> 9.1.5 -> 9.1.7, 9.2.2
+9.1.4 -> 9.1.7, 9.2.2
+9.1.1 + 9.1.6 -> 9.2.1
+9.2.1 + 9.2.2 -> 9.2.3 -> 9.2.4
 9.1.2 any time (rate seeded at 1; 9.1.3 does not need it)
 ```
 

@@ -12,7 +12,7 @@ The loyalty qualification check is the single rule used by all earning paths (we
 
 **Acceptance Criteria:**
 - [ ] Qualification check: a B2B client (`customers.b2bClient`) earns nothing, even with a Storefront account
-- [ ] Qualification check: a customer without a Storefront account with a confirmed email earns nothing
+- [ ] Qualification check: a customer record that no Storefront account is linked to (e.g., quick-registered at the POS) earns nothing
 - [ ] Qualification check: the guest customer (id 673) never earns
 - [ ] The sale of a logged-in member is linked to the member's own customer record, whatever email is typed in the order details
 - [ ] A guest checkout earns nothing, even when its email matches a member's customer record

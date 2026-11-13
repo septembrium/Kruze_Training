@@ -10,7 +10,7 @@
 **Acceptance Criteria:**
 - [ ] Every member has a member code of 8 characters
 - [ ] The code contains no 0, O, 1, I or L
-- [ ] Codes are shown in upper case; a code typed in lower case matches the same member
+- [ ] Codes are shown in upper case
 - [ ] A customer without a Storefront account, and the guest customer (id 673), has no member code and is never found by the member code lookup
 - [ ] Codes are unique across members
 - [ ] The Loyalty tab shows the code as a QR code and as text, both carrying the same code
