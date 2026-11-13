@@ -95,7 +95,7 @@ This directory contains the structured use case documentation for the KRUZE Coff
 
 | ID | Title | Domain | Priority | Status |
 |----|-------|--------|----------|--------|
-| [UC-032](UC-032-loyalty-earn-points.md) | Earn Loyalty Points (v1: earning only, POS + Storefront) | Customer / Loyalty / Sales | Should | Draft |
+| [UC-032](UC-032-loyalty-earn-points.md) | Earn Loyalty Points (v1: earning only, POS + Storefront) | Customer / Loyalty / Sales | Should | Reviewed |
 
 ## Loyalty — Future (UC-031, UC-033 to UC-035)
 
@@ -115,7 +115,7 @@ This directory contains the structured use case documentation for the KRUZE Coff
 | **Sales / Finance** | UC-003, UC-004, UC-006, UC-008, UC-018, UC-021, UC-025, UC-040 | Complete |
 | **Product** | UC-001, UC-006, UC-007, UC-011, UC-016, UC-029, UC-038 | Complete |
 | **Customer** | UC-002, UC-007, UC-026, UC-039 | Complete |
-| **Customer / Loyalty (v1)** | UC-032 | Draft (earning only) |
+| **Customer / Loyalty (v1)** | UC-032 | Reviewed (earning only) |
 | **Inventory** | UC-009, UC-010, UC-012, UC-013, UC-017 | Complete |
 | **E-Commerce** | UC-023, UC-024, UC-025, UC-026, UC-030, UC-036, UC-037 | Complete |
 | **POS** | UC-021, UC-022 | Complete |

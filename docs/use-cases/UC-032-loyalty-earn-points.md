@@ -9,7 +9,7 @@ A registered B2C customer earns loyalty points on every paid purchase made in th
 - **Primary Actor:** Registered Customer (loyalty member)
 - **Secondary Actors:** Payment Provider (Mollie), POS User / Cashier (identifies the member in the shop).
 - **Priority:** Should
-- **Status:** Draft (v1 scope, pending review)
+- **Status:** Reviewed
 - **Interface:** Storefront (checkout), POS Terminal (member identification)
 
 ## Preconditions
@@ -44,10 +44,10 @@ A registered B2C customer earns loyalty points on every paid purchase made in th
 - **BR-2:** One global earn rate applies to all sales, set by the admin as points per EUR 1 (see UC-015). There are no different rates per channel, product or customer type. A new rate applies only to later sales.
 - **BR-3:** The earn basis is the amount paid for products, including VAT, after discounts (including a sale-level discount), and excluding shipping cost. Example: a paid basket of EUR 42,50 incl. VAT plus EUR 5,00 shipping, at 1 point per EUR 1, earns 42 points.
 - **BR-4:** Points are rounded down to whole points per sale.
-- **BR-5:** Only customers who are not registered as B2B clients earn points. A B2B client earns nothing, even with a Storefront account.
+- **BR-5:** Only customers who are not registered as B2B clients earn points. A B2B client earns nothing, even with a Storefront account. A B2B client who has a Storefront account still has a member code, but earns no points.
 - **BR-6:** Only a logged-in member earns points online. The sale of a logged-in member is always linked to the member's own customer record, whatever email address is entered in the checkout order details. A guest checkout earns no points, even when its email address matches a member's customer record. At the POS, only a customer who is a loyalty member earns points, whether selected through the member code or the normal customer selection; a selected customer who is not a member earns no points and has no member code. The default Kruze company customer is never a loyalty member.
 - **BR-7:** A sale without an identified member earns nothing and cannot be linked to a member afterwards in v1.
-- **BR-8:** Each member has a unique member code that identifies them at the POS.
+- **BR-8:** Each member has a unique member code of 8 characters that identifies them at the POS. The code contains no look-alike characters (no 0 or O, no 1, I or L). A member can regenerate the code (UC-026 AF-7); the old code stops working immediately, and points already earned stay with the member.
 - **BR-9:** Points entries are never changed or removed, and every entry traces to a sale.
 - **BR-10:** A sale awards points at most once.
 - **BR-11:** Points awarded for a sale are final. Because a paid sale cannot be edited, removed or changed to another status (UC-003 BR-8, UC-004 AF-3 and BR-4), no reversal is needed in v1.
@@ -62,7 +62,7 @@ A registered B2C customer earns loyalty points on every paid purchase made in th
 - Notifications. The member sees the updated balance in their Storefront account.
 
 ## Open Questions
-1. **Member code (blocks the POS slice only):** What format should the code have so it is easy to type, and may a member regenerate it if it is shared or lost?
+None.
 
 ## Implementation Notes
 - The legacy `loyalty` table is unused and is replaced by an append-only points ledger with one entry per award. A member's balance is the sum of their entries. The ledger structure should allow reversal entries later (see Out of Scope), but none are written in v1.
