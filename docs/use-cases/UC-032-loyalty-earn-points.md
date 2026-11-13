@@ -7,7 +7,7 @@ A registered B2C customer earns loyalty points on every paid purchase made in th
 ## Metadata
 - **Domain:** Customer / Loyalty / Sales
 - **Primary Actor:** Registered Customer (loyalty member)
-- **Secondary Actors:** Payment Provider (Mollie), POS User / Cashier (identifies the member in the shop).
+- **Secondary Actors:** Payment Provider (Mollie), POS User / Cashier (identifies the member in the shop), Admin (marks a sale paid, AF-4).
 - **Priority:** Should
 - **Status:** Reviewed
 - **Interface:** Storefront (checkout), POS Terminal (member identification)
@@ -29,6 +29,7 @@ A registered B2C customer earns loyalty points on every paid purchase made in th
 - **AF-1: Earn Points on a POS Purchase** — At step 1, instead of buying in the webshop, the member buys in the shop. Before completing the sale, the cashier identifies the member by scanning the member's QR code or typing the member code. This is a faster way to select the customer and is equivalent to selecting a customer in UC-021 step 7, including the existing pricing rules (UC-021 step 8). The system shows the matched customer's name so the cashier can confirm it. The cashier completes the sale (UC-021), and the system records it as paid. The flow continues at step 4.
 - **AF-2: Sale Without a Member** — At AF-1, the cashier does not select a customer, or selects a customer who is not a loyalty member (for example a customer quick-registered at the POS without a Storefront account, see UC-002 AF-6). The sale is completed as normal but earns no points, and the use case ends.
 - **AF-3: B2B Customer** — At step 4, the customer is registered as a B2B client. No points are earned and the use case ends. At the POS, a B2B customer can still be selected and the sale proceeds as normal, but earns nothing.
+- **AF-4: Sale Marked Paid by Admin** — At step 3, instead of the payment provider confirming the payment, the admin changes the status of a B2C member's sale to paid in the Admin Dashboard (UC-004 AF-3). The system marks the sale as paid. The flow continues at step 4 with the same rules.
 
 ## Exception Flows
 - **EF-1: Member Code Not Found** — At AF-1, when the cashier scans or types a code, the system detects that it does not match any member. The system informs the cashier. The cashier can retry, or continue the sale without a member (AF-2).
@@ -40,17 +41,18 @@ A registered B2C customer earns loyalty points on every paid purchase made in th
 - For a sale without a member, or of a B2B client: no points entry exists.
 
 ## Business Rules
-- **BR-1:** Points are awarded only for sales that are paid.
+- **BR-1:** Points are awarded only for sales that are paid, at the moment the sale becomes paid, whatever the channel (webshop payment, POS sale, or admin marking the sale paid).
 - **BR-2:** One global earn rate applies to all sales, set by the admin as points per EUR 1 (see UC-015). There are no different rates per channel, product or customer type. A new rate applies only to later sales.
 - **BR-3:** The earn basis is the amount paid for products, including VAT, after discounts (including a sale-level discount), and excluding shipping cost. Example: a paid basket of EUR 42,50 incl. VAT plus EUR 5,00 shipping, at 1 point per EUR 1, earns 42 points.
 - **BR-4:** Points are rounded down to whole points per sale.
 - **BR-5:** Only customers who are not registered as B2B clients earn points. A B2B client earns nothing, even with a Storefront account. A B2B client who has a Storefront account still has a member code, but earns no points.
-- **BR-6:** Only a logged-in member earns points online. The sale of a logged-in member is always linked to the member's own customer record, whatever email address is entered in the checkout order details. A guest checkout earns no points, even when its email address matches a member's customer record. At the POS, only a customer who is a loyalty member earns points, whether selected through the member code or the normal customer selection; a selected customer who is not a member earns no points and has no member code. The default Kruze company customer is never a loyalty member.
+- **BR-6:** Only a logged-in member earns points online. The sale of a logged-in member is always linked to the member's own customer record, whatever email address is entered in the checkout order details. A guest checkout earns no points, even when its email address matches a member's customer record. At the POS, only a customer who is a loyalty member earns points, whether selected through the member code or the normal customer selection; a selected customer who is not a member earns no points and has no member code. The default company customer used for guest sales, both in the webshop and at the POS, is never a loyalty member.
 - **BR-7:** A sale without an identified member earns nothing and cannot be linked to a member afterwards in v1.
 - **BR-8:** Each member has a unique member code of 8 characters that identifies them at the POS. The code contains no look-alike characters (no 0 or O, no 1, I or L). A member can regenerate the code (UC-026 AF-7); the old code stops working immediately, and points already earned stay with the member.
 - **BR-9:** Points entries are never changed or removed, and every entry traces to a sale.
 - **BR-10:** A sale awards points at most once.
 - **BR-11:** Points awarded for a sale are final. Because a paid sale cannot be edited, removed or changed to another status (UC-003 BR-8, UC-004 AF-3 and BR-4), no reversal is needed in v1.
+- **BR-12:** Membership requires a confirmed email address. While the email address of a Storefront account is unconfirmed, the account is not linked to an existing customer record and is not yet a member; it is linked at the first sign-in after confirmation (UC-026 AF-6).
 
 ## Out of Scope (v1)
 - Showing the balance, history and member code to the member (UC-026 AF-5) and configuring the earn rate (UC-015 AF-6) are described in those use cases.
@@ -68,6 +70,9 @@ None.
 - The legacy `loyalty` table is unused and is replaced by an append-only points ledger with one entry per award. A member's balance is the sum of their entries. The ledger structure should allow reversal entries later (see Out of Scope), but none are written in v1.
 - The earn rate in force is stored with each entry, so history stays explainable after a rate change.
 - The earning event is the sale becoming paid, not the webshop order record, which has its own separate status. Sale statuses are a reference table: NEW=1, SHIPPED=2, INVOICED=3, PAID=4 (`server/salesService.ts`, verified). POS sales are created as PAID. A webshop sale goes from NEW to PAID through the Mollie webhook. The unused `salesStatusEnum` in `shared/schema.ts` is not relevant.
+- There are three paths to a paid sale, and the award must hook into all of them: the Mollie webhook (webshop), POS sale creation (created as PAID), and the admin status change (`salesService.updateSaleStatus`, UC-004 AF-3).
+- The default company customer is the single record with ID 673 ("Kruze"), used by `posService.getGuestCustomer` and as the guest customer in `checkoutService`. It must be excluded from membership and member-code issuance.
+- Email confirmation: the spec must check the actual Supabase email-confirmation setting (whether confirmation is enforced and how the confirmed state is exposed) before implementing the link at first sign-in.
 - A paid sale can no longer be edited, have its status changed, or be removed (`server/salesService.ts` refuses all three), which is why awarded points are final.
 - Shipping is stored as a separate sales line (`server/checkoutService.ts`, verified), so the earn basis can exclude it. Sale-level discounts must be taken into account.
 - B2B is determined by the customer's B2B client flag, not the B2B prices flag.
