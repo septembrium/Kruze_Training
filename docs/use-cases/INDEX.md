@@ -19,8 +19,8 @@ This directory contains the structured use case documentation for the KRUZE Coff
 | **Admin** | Admin Dashboard |
 | **POS User / Cashier** | POS Terminal |
 | **Webshop Visitor** | Storefront |
-| **Registered Customer** | Storefront, Loyalty App |
-| **Loyalty User** (Future) | Loyalty App |
+| **Registered Customer** | Storefront (also a loyalty member, see UC-032) |
+| **Loyalty User** (Future) | Loyalty App (UC-031, UC-033 to UC-035) |
 
 **Secondary Actors** (external systems or persons the system interacts with):
 
@@ -91,12 +91,17 @@ This directory contains the structured use case documentation for the KRUZE Coff
 | [UC-036](UC-036-discover-storefront-search-engines.md) | Discover Storefront via Search Engines | E-Commerce / Marketing | Should | Draft |
 | [UC-037](UC-037-track-visitor-behavior-consent.md) | Track Visitor Behavior with Consent | E-Commerce / Marketing / Compliance | Should | Draft |
 
-## Loyalty App — Future (UC-031 to UC-035)
+## Loyalty — v1 (UC-032)
+
+| ID | Title | Domain | Priority | Status |
+|----|-------|--------|----------|--------|
+| [UC-032](UC-032-loyalty-earn-points.md) | Earn Loyalty Points (v1: earning only, POS + Storefront) | Customer / Loyalty / Sales | Should | Draft |
+
+## Loyalty — Future (UC-031, UC-033 to UC-035)
 
 | ID | Title | Domain | Priority | Status |
 |----|-------|--------|----------|--------|
 | [UC-031](UC-031-loyalty-login-verification.md) | Loyalty App Login and Email Verification | Customer / Loyalty | Could | Draft |
-| [UC-032](UC-032-loyalty-earn-points.md) | Earn Loyalty Points | Customer / Loyalty | Could | Draft |
 | [UC-033](UC-033-loyalty-badges.md) | View and Unlock Loyalty Badges | Customer / Gamification | Could | Draft |
 | [UC-034](UC-034-loyalty-redeem-rewards.md) | Redeem Loyalty Rewards | Customer / Loyalty | Could | Draft |
 | [UC-035](UC-035-loyalty-challenges-tips.md) | Participate in Challenges and View Content | Customer / Gamification | Could | Draft |
@@ -109,14 +114,15 @@ This directory contains the structured use case documentation for the KRUZE Coff
 |--------|-----------|----------|
 | **Sales / Finance** | UC-003, UC-004, UC-006, UC-008, UC-018, UC-021, UC-025, UC-040 | Complete |
 | **Product** | UC-001, UC-006, UC-007, UC-011, UC-016, UC-029, UC-038 | Complete |
-| **Customer** | UC-002, UC-007, UC-026, UC-039 | Complete |
+| **Customer** | UC-002, UC-007, UC-026, UC-032, UC-039 | Complete |
 | **Inventory** | UC-009, UC-010, UC-012, UC-013, UC-017 | Complete |
 | **E-Commerce** | UC-023, UC-024, UC-025, UC-026, UC-030, UC-036, UC-037 | Complete |
 | **POS** | UC-021, UC-022 | Complete |
 | **Analytics** | UC-014 | Complete |
 | **Security / Auth** | UC-027 | Complete |
 | **Operations / Config** | UC-012, UC-015, UC-016, UC-029 | Complete |
-| **Loyalty (Future)** | UC-031, UC-032, UC-033, UC-034, UC-035 | Draft |
+| **Loyalty (v1)** | UC-032 | Draft |
+| **Loyalty (Future)** | UC-031, UC-033, UC-034, UC-035 | Draft |
 
 ---
 

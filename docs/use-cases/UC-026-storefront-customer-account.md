@@ -35,6 +35,9 @@ From the most-ordered products section, the registered user adds a previously pu
 ### AF-4: Logout
 The registered user chooses to sign out. The system ends the session and returns the user to the public storefront. See UC-027 for the full logout flow.
 
+### AF-5: Loyalty Points *(planned, see UC-032)*
+The registered user sees their loyalty points balance, points history, and personal QR code / member code on the account page. See UC-032 for the behaviour.
+
 ## Exception Flows
 - **EF-1: Validation Error** — A submitted profile field contains invalid data (e.g., empty required field). The system highlights the field and shows a descriptive error message. The profile is not saved.
 - **EF-2: Expired Session** — The session has expired while the user is on the account page. API requests return 401. The system redirects the user to the login page with a return URL so they can continue after re-authenticating.

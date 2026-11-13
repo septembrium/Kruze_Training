@@ -37,6 +37,7 @@ A webshop visitor completes a purchase by providing their order details and payi
 - **AF-2: Payment Pending** — Some payment methods (e.g. bank transfer) have delayed confirmation. The order remains in a pending state until confirmation arrives.
 - **AF-3: Authenticated Customer** — A logged-in customer's address and contact details are pre-filled from their profile.
 - **AF-4: B2B Customer** — Company name and VAT number are captured for B2B invoicing.
+- **AF-5: Loyalty Points** *(planned, see UC-032)* — When the order of a logged-in customer becomes paid (step 12), the system awards loyalty points. Guest checkouts earn no points.
 
 ## Exception Flows
 - **EF-1: Validation Error** — Required fields are missing or invalid. The system highlights the errors and prevents the visitor from proceeding.
