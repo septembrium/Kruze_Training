@@ -18,26 +18,23 @@ A webshop visitor starts a WhatsApp conversation with KRUZE straight from the st
 1. The webshop visitor wants to ask KRUZE a question and looks up the contact details in the footer of a storefront page.
 2. The system shows the contact details: shop name, address, phone number, email address, and an invitation to chat via WhatsApp together with the WhatsApp number.
 3. The webshop visitor indicates they want to start a WhatsApp conversation.
-4. The system records an anonymous contact request with the date and time and the place it was made from (footer).
-5. The system opens WhatsApp addressed to KRUZE's WhatsApp number, with the default message already filled in.
+4. The system records an anonymous contact request, together with the date and time and that the request came from the footer.
+5. The system opens WhatsApp addressed to KRUZE's WhatsApp number, with the default message already filled in, also when the contact request could not be recorded.
 6. The webshop visitor adjusts the message if desired and sends it to KRUZE.
 
 ## Alternative Flows
-- **AF-1: Start from the Contact Page** — At step 1, the webshop visitor opens the Contact page instead of the footer. The system shows the address, phone number, email address, opening hours and the invitation to chat via WhatsApp with the WhatsApp number. The flow continues at step 3; at step 4 the place is recorded as the Contact page.
-- **AF-2: Device Without the WhatsApp App** — At step 5, the webshop visitor's device does not have WhatsApp installed (e.g., a desktop computer). WhatsApp offers to continue in WhatsApp Web, with the same number and message filled in. The webshop visitor continues there and the flow continues at step 6.
+- **AF-1: Start from the Contact Page** — At step 1, the webshop visitor opens the Contact page instead of the footer. The system shows the address, phone number, email address, opening hours (existing opening hours, unchanged) and the invitation to chat via WhatsApp with the WhatsApp number. The flow continues at step 3; at step 4 the system records that the request came from the Contact page.
 
 ## Exception Flows
-- **EF-1: Visitor Has No WhatsApp Account** — At step 5 (or during AF-2), the webshop visitor cannot use WhatsApp because they have no account. No conversation is started; the visitor can still use the phone number or email address shown at step 2. The contact request recorded at step 4 remains counted.
+None. The system cannot detect what happens inside WhatsApp after step 5.
 
 ## Postconditions
-- A WhatsApp conversation with KRUZE is open on the visitor's device, containing the default message, and the visitor has sent it.
-- One anonymous contact request is counted for the business owner.
+- WhatsApp is open on the visitor's device, addressed to KRUZE, with the default message ready to send.
+- One anonymous contact request is counted for the admin.
 
 ## Business Rules
-- **BR-1:** A recorded contact request contains only the date and time and the place it was made from (footer or Contact page). No personal data, device identifiers or cookies are stored, so no visitor consent (UC-037) is required.
-- **BR-2:** The place a contact request was made from must be either the footer or the Contact page; any other value is rejected.
-- **BR-3:** Failing to record a contact request must never prevent the visitor from reaching WhatsApp.
-- **BR-4:** The number of contact requests accepted from a single source in a short period is limited, to keep the count meaningful and prevent abuse.
+- **BR-1:** A recorded contact request contains only the date and time and whether it came from the footer or the Contact page. Nothing that identifies the visitor is kept.
+- **BR-2:** No more than 5 contact requests from the same visitor are counted within 10 minutes; further requests in that window are not counted, but WhatsApp still opens.
 
 ## Presentation Guidelines
 - **PG-1:** The WhatsApp invitation is only shown when WhatsApp contact is switched on and a number is registered; otherwise the contact details appear exactly as before, without any WhatsApp mention.
@@ -47,10 +44,18 @@ A webshop visitor starts a WhatsApp conversation with KRUZE straight from the st
 ## Implementation Notes
 - Configuration lives in the existing `parameter_table` (see UC-015, AF-6): `whatsapp_enabled`, `whatsapp_number`, `whatsapp_default_message`.
 - A public, unauthenticated endpoint exposes the configuration only when enabled and a number is set; otherwise it returns a disabled state. Never expose any other parameter through it.
+- The public configuration endpoint reads exactly the three whatsapp_* parameters by name via parameterService.getParameter; never use getAllParameters (it would expose e.g. accounting_email).
+- parameter_value is NOT NULL text: store the toggle as 'true'/'false' and empty values as ''. Parameter names are matched case-insensitively.
 - Link format: `https://wa.me/<digits-only international number>?text=<URL-encoded default message>`, with `target="_blank"` and `rel="noopener noreferrer"`.
-- Click recording uses a public endpoint with a new table (e.g., `whatsapp_contact_click`: id, clicked_at, source ∈ {`footer`, `contact_page`}). Send it fire-and-forget (e.g., `navigator.sendBeacon`) so navigation is never blocked (BR-3). Apply rate limiting per IP (BR-4); do not persist the IP.
+- Click recording uses a public endpoint with a new table (e.g., `whatsapp_contact_click`: id, clicked_at, source ∈ {`footer`, `contact_page`}). Any other source value is rejected.
+- Failing to record a contact request must never prevent the visitor from reaching WhatsApp. Send the request fire-and-forget (e.g., `navigator.sendBeacon`) so navigation is never blocked.
+- Rate limiting is 5 requests per 10 minutes per IP (BR-2). Rate limiting uses the IP address in memory only and never persists it.
+- Privacy decision (accepted by the owner, 2026-11-13): because nothing identifying is stored or placed on the visitor's device, visitor consent (UC-037) is not requested. Rate limiting uses the IP address in memory only and never persists it.
+- On devices without the WhatsApp app, wa.me falls back to WhatsApp Web; no extra handling needed.
+- The count measures contact intent (clicks), not delivered messages; a visitor without a WhatsApp account is still counted.
 - Admin view of click totals is part of the WhatsApp section in System Settings (UC-015).
 - The existing phone number and email in the footer and Contact page are hardcoded and stay out of scope for this use case.
+- Dependency: requires UC-015 AF-6 (WhatsApp configuration). Suggested slice order: (1) UC-015 AF-6 configuration without counts; (2) footer link with default message, no counting; (3) anonymous counting with rate limiting; (4) admin counts view in UC-015; (5) Contact page (AF-1).
 
 ## Implemented By
 - Routes: Not yet implemented
