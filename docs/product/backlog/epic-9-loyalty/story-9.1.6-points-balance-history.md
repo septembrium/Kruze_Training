@@ -18,8 +18,8 @@
 - [ ] A member sees only their own balance and history
 
 **Technical Implementation:**
-- Backend: `GET /api/account/loyalty` in `server/routes.ts` (isAuthenticated, next to `/api/account/profile`); queries in `server/loyaltyService.ts`; the reference is not the invoice number, which is '0' for non-B2B
+- Backend: `GET /api/account/loyalty` in `server/routes.ts` (isAuthenticated, next to `/api/account/profile`); queries in `server/loyaltyService.ts`; the POS sale number is the sale's own number, to be defined in the spec, and is not the invoice number (which is '0' for non-B2B)
 - Frontend: new Loyalty tab in `client/src/pages/storefront/Account.tsx` (`TABS` list)
 - Database: none (reads the ledger from Story 9.1.3)
 
-**Dependencies:** Story 9.1.3. Must ship in the same release as Story 9.1.3.
+**Dependencies:** Story 9.1.3. Must ship in the same release as Stories 9.1.3 and 9.1.4.

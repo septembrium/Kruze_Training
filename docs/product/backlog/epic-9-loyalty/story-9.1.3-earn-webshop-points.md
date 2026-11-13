@@ -24,6 +24,6 @@ Happy path only. This story creates the append-only points ledger and the earnin
 **Technical Implementation:**
 - Backend: new `server/loyaltyService.ts` (new) with the award logic; called from `handleWebhook` in `server/checkoutService.ts` (~303-357) when the sale becomes PAID (status 4, `server/salesService.ts`); rate read via `parameterService`
 - Frontend: none (visible in Story 9.1.6)
-- Database: new points ledger table in `shared/schema.ts` (new; signed points so reversals fit later); retire the unused `loyalty` table at `shared/schema.ts:392`; migration via drizzle-kit
+- Database: new points ledger table in `shared/schema.ts` (new; signed points so reversals fit later; unique per sale for earn entries, so a sale awards at most once); retire the unused `loyalty` table at `shared/schema.ts:392`; migration via drizzle-kit
 
-**Dependencies:** Story 9.1.1. Must ship in the same release as Story 9.1.6. Story 9.1.2 is not required (rate seeded at 1).
+**Dependencies:** Story 9.1.1. Must ship in the same release as Stories 9.1.4 and 9.1.6.
