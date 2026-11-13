@@ -6,7 +6,7 @@
 **I want to** start a WhatsApp conversation with KRUZE from the contact details, with an opening message already filled in
 **So that** I can ask a question in the app I already use, without calling or writing an email
 
-**References:** UC-043 (main flow steps 1–3, 5–6; AF-1; PG-1–PG-3)
+**References:** UC-043 (main flow steps 1–3, 5 (opening WhatsApp); AF-1; PG-1–PG-3)
 **Priority:** Should
 **Estimate:** 3 story points
 
@@ -14,6 +14,7 @@
 - [ ] When WhatsApp contact is on and a number is set, the footer contact details on every storefront page offer a WhatsApp chat invitation showing the WhatsApp number, next to the phone number and email address
 - [ ] Under the same conditions, the Contact page (`/nl/contact`) offers the same invitation with the number, alongside address, phone, email and the unchanged opening hours
 - [ ] The invitation links to `https://wa.me/<number>?text=<message>`, with the default message URL-encoded; a message containing spaces, é, ë and & produces a correctly encoded link (verified on the link, not in WhatsApp)
+- [ ] A link built from a 500-character message (including emoji) still opens WhatsApp with the message; if it does not, lower the limit and update UC-015 BR-9 and Story 9.1
 - [ ] Following the invitation opens WhatsApp in a new browser tab or the app; the visitor's webshop page stays where it was
 - [ ] The invitation has an accessible name and can be activated by keyboard
 - [ ] When WhatsApp contact is off, or no number is set, neither the footer nor the Contact page shows any WhatsApp mention, and the existing contact details look as before

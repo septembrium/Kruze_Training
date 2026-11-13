@@ -25,7 +25,7 @@
 **Technical Implementation:**
 - Database: new table `whatsapp_contact_click` (`id` serial, `clicked_at` timestamptz default now, `source` text with check `IN ('footer','contact_page')`), Drizzle schema + insert type in `shared/schema.ts`, migration via `/add-table`
 - Backend: public `POST /api/webshop/whatsapp-clicks` with Zod-validated `{ source }`; success returns 204
-- Rate limiting: use the already-installed `express-rate-limit` (fixed 10-minute window, max 5) with a custom handler returning 204 (not the default 429), keyed on `req.ip` (trust proxy is already set in `server/index.ts`); IP never persisted or logged. Note the global `apiLimiter` in `server/index.ts` also applies — tests must not trip it
+- Rate limiting: use the already-installed `express-rate-limit` (fixed 10-minute window, max 5) with a custom handler returning 204 (not the default 429), keyed on `req.ip` (trust proxy is already set in `server/index.ts`); IP never persisted or logged. Note the global `apiLimiter` in `server/index.ts` also applies — tests must not trip it. Place the limiter after validation and the switched-off check, so only requests that would be recorded count toward the 5
 - Frontend: `WhatsAppContactLink` sends the click via `navigator.sendBeacon` with a `Blob` of type `application/json` (fallback `fetch` with `keepalive`), fire-and-forget, without delaying navigation
 - Note: rate-limit state is in memory, per server instance; table growth is unbounded and accepted for expected traffic
 

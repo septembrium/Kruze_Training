@@ -34,7 +34,7 @@ None. The system cannot detect what happens inside WhatsApp after step 5.
 
 ## Business Rules
 - **BR-1:** A recorded contact request contains only the date and time and whether it came from the footer or the Contact page. Nothing that identifies the visitor is kept.
-- **BR-2:** No more than 5 contact requests from the same source are counted within 10 minutes; further requests in that window are not counted, but WhatsApp still opens.
+- **BR-2:** No more than 5 contact requests from the same source are counted per 10-minute period; further requests in that period are not counted, but WhatsApp still opens.
 
 ## Presentation Guidelines
 - **PG-1:** The WhatsApp invitation is only shown when WhatsApp contact is switched on and a number is registered; otherwise the contact details appear exactly as before, without any WhatsApp mention.

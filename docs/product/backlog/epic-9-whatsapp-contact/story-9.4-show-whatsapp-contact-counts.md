@@ -22,7 +22,7 @@
 - [ ] Only admins can retrieve the counts (non-admin → 401/403)
 
 **Technical Implementation:**
-- Backend: aggregate query in a storage method (single grouped SQL aggregate, no per-row loading); the service merges it into the `GET /api/settings/whatsapp` response, extending it with `counts: { footer: { last30Days, total }, contactPage: { last30Days, total } }`
+- Backend: aggregate query in a storage method (single grouped SQL aggregate, no per-row loading); the service merges it into the `GET /api/settings/whatsapp` response, extending it with `counts: { footer: { last30Days, total }, contactPage: { last30Days, total } }`. If the aggregate query fails, GET still returns the three settings with `counts: null`, and the UI shows the unavailable message
 - Frontend: read-only count display in the WhatsApp section of `client/src/pages/admin/Settings.tsx`
 - Database: none (uses `whatsapp_contact_click` from Story 9.3)
 
