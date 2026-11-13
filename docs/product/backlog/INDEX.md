@@ -32,8 +32,9 @@
 | [Epic 6](./epic-6-storefront/epic.md) | Storefront Website | 5 | ~100 | Partial — cart/checkout/Mollie work; missing i18n, SEO, search, templates |
 | [Epic 7](./epic-7-storefront-account/epic.md) | Storefront Account | 1 | ~5 | Partial — top products works, order history buggy (ISS-016), reorder missing |
 | [Epic 8](./epic-8-customer-pricing/epic.md) | Customer-Specific Pricing | 1 | ~5 | Not Started — backend done, admin UI is placeholder only |
+| [Epic 9](./epic-9-whatsapp-contact/epic.md) | WhatsApp Contact | 4 | ~10 | Not Started — UC-043 + UC-015 AF-6 |
 
-**Total: 31 story groups / ~276 estimated points**
+**Total: 35 story groups / ~286 estimated points**
 
 ---
 
