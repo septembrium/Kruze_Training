@@ -34,21 +34,22 @@
 ## Dependency Order
 
 ```
-9.1.1 -> 9.1.3 + 9.1.6 (same release)
-      -> 9.1.4, 9.1.5, 9.1.7, 9.2.2 (parallel, after 9.1.3)
-9.1.1 + 9.1.6 -> 9.2.1 -> 9.2.3 (also needs 9.2.2) -> 9.2.4
+9.1.1 -> [9.1.3 + 9.1.4 + 9.1.6, same release] -> 9.1.5 -> 9.1.7 and 9.2.2 (parallel) -> 9.2.1 -> 9.2.3 -> 9.2.4
+          9.1.4 -> 9.1.7
+          9.1.4 -> 9.2.2
 9.1.2 any time (rate seeded at 1; 9.1.3 does not need it)
 ```
 
-- 9.1.3 and 9.1.6 ship together: points nobody can see have no value.
-- 9.1.4 and 9.1.7 use the qualification rules (member, not B2B) and must be in place before go-live of 9.1.7.
-- 9.1.5's retry rule applies to the webshop, POS (9.2.2) and admin (9.1.7) paths.
+- 9.1.3, 9.1.4 and 9.1.6 ship together: points nobody can see have no value, and without 9.1.4 guests and B2B clients would earn points.
+- 9.1.4 holds the single qualification rule used by all earning paths; 9.1.7 and 9.2.2 only prove they use it.
+- 9.1.5's retry is reused by 9.1.7 and 9.2.2.
+- 9.2.1 needs 9.1.1 and 9.1.6; 9.2.3 needs 9.2.1 and 9.2.2.
 
 ## Key Decisions
 - One global earn rate; a new rate applies only to later sales; the rate in force is stored on each entry.
 - Earn basis: products incl. VAT after discounts (including sale-level discount), excl. shipping; rounded down per sale.
-- Points are awarded when the sale becomes PAID: webshop (Mollie webhook), POS (created PAID), or an admin marking the sale paid. At most once per sale.
-- Only a logged-in B2C member earns. B2B clients, guests, customers without a Storefront account, the POS guest customer (`posService.getGuestCustomer`) and the webshop guest record (id 673) never earn.
+- Points are awarded when the sale becomes PAID: webshop (Mollie webhook), POS (created PAID), or an admin making a sale paid (status change, creating a sale directly as paid, or editing a sale to paid). At most once per sale.
+- Only a logged-in B2C member earns. B2B clients, guests, customers without a Storefront account, the guest customer (id 673, used by `posService.getGuestCustomer` and the webshop guest checkout) never earns. The qualification rule lives once, in 9.1.4.
 - An account is linked to an existing customer record only when its email is confirmed by the auth service; an unconfirmed account is linked at the first sign-in after confirmation.
 - Retry only re-attempts awards that were attempted and failed. There is never a sweep of all PAID sales without an entry, so there is no backfill.
 - An append-only ledger replaces the unused legacy `loyalty` table. Awarded points are final in v1.
@@ -61,7 +62,7 @@
 - Reversal of points, refunds and credit notes
 - Admin viewing or adjusting a member's points
 - Backfilling points for purchases made before go-live
-- Linking a sale to a member after it is paid
+- Linking a sale to a member after it is completed
 - Promotional multipliers and notifications
 
 ## New Dependencies to Check

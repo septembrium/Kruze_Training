@@ -84,8 +84,9 @@
 - [Epic 7](./epic-7-storefront-account/epic.md): Storefront Account
 - [Epic 9](./epic-9-loyalty/epic.md): Loyalty Points, in this order:
   1. [Story 9.1.1](./epic-9-loyalty/story-9.1.1-link-account-customer.md): Link account to customer record
-  2. [Story 9.1.3](./epic-9-loyalty/story-9.1.3-earn-webshop-points.md) + [Story 9.1.6](./epic-9-loyalty/story-9.1.6-points-balance-history.md): Earn webshop points and show balance (same release)
-  3. In parallel: [9.1.4](./epic-9-loyalty/story-9.1.4-checkout-member-attribution.md) checkout attribution, [9.1.5](./epic-9-loyalty/story-9.1.5-points-survive-payment-delays.md) delays and failures, [9.1.7](./epic-9-loyalty/story-9.1.7-admin-marks-sale-paid.md) admin marks paid, [9.2.2](./epic-9-loyalty/story-9.2.2-pos-sale-earns-points.md) POS sale earns
+  2. Same release: [9.1.3](./epic-9-loyalty/story-9.1.3-earn-webshop-points.md) earn webshop points, [9.1.4](./epic-9-loyalty/story-9.1.4-checkout-member-attribution.md) checkout attribution, [9.1.6](./epic-9-loyalty/story-9.1.6-points-balance-history.md) balance and history
+  3. [Story 9.1.5](./epic-9-loyalty/story-9.1.5-points-survive-payment-delays.md): delays and failures
+  4. In parallel: [9.1.7](./epic-9-loyalty/story-9.1.7-admin-marks-sale-paid.md) admin makes sale paid, [9.2.2](./epic-9-loyalty/story-9.2.2-pos-sale-earns-points.md) POS sale earns
   4. [Story 9.2.1](./epic-9-loyalty/story-9.2.1-member-code.md): Member code
   5. [Story 9.2.3](./epic-9-loyalty/story-9.2.3-pos-identify-member-by-code.md): Identify by typed code, then [Story 9.2.4](./epic-9-loyalty/story-9.2.4-pos-identify-member-by-qr.md): by QR scan
   - [Story 9.1.2](./epic-9-loyalty/story-9.1.2-earn-rate-setting.md): Earn rate setting (any time)

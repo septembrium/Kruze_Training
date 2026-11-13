@@ -14,6 +14,7 @@
 - [ ] An unknown code shows a clear message, and the cashier can retry
 - [ ] After an unknown code, the cashier can continue the sale without a member
 - [ ] A regenerated (old) code gives the same message as an unknown code
+- [ ] A member code of a B2B client selects that customer, and the sale proceeds without points
 - [ ] Lookup is available to authenticated POS users only
 - [ ] Lookup is limited to 10 per minute per user, and further attempts get a clear message
 - [ ] The lookup returns only the customer's name and customer id
