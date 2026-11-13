@@ -26,6 +26,7 @@ This directory contains the structured use case documentation for the KRUZE Coff
 
 | Actor | Role | Used In |
 |-------|------|---------|
+| **WhatsApp** (messaging service) | Visitor-initiated chat with KRUZE | UC-043 |
 | **Authentication Service** (Supabase Auth) | Identity verification and session management | All interfaces |
 | **Payment Provider** (Mollie) | Online payment processing | Storefront checkout |
 | **Email Service** (Resend) | Email delivery for invoices and notifications | Admin, Storefront |
@@ -90,6 +91,7 @@ This directory contains the structured use case documentation for the KRUZE Coff
 |----|-------|--------|----------|--------|
 | [UC-036](UC-036-discover-storefront-search-engines.md) | Discover Storefront via Search Engines | E-Commerce / Marketing | Should | Draft |
 | [UC-037](UC-037-track-visitor-behavior-consent.md) | Track Visitor Behavior with Consent | E-Commerce / Marketing / Compliance | Should | Draft |
+| [UC-043](UC-043-contact-kruze-via-whatsapp.md) | Contact KRUZE via WhatsApp | Storefront / Customer Contact | Should | Draft |
 
 ## Loyalty App — Future (UC-031 to UC-035)
 
@@ -111,7 +113,7 @@ This directory contains the structured use case documentation for the KRUZE Coff
 | **Product** | UC-001, UC-006, UC-007, UC-011, UC-016, UC-029, UC-038 | Complete |
 | **Customer** | UC-002, UC-007, UC-026, UC-039 | Complete |
 | **Inventory** | UC-009, UC-010, UC-012, UC-013, UC-017 | Complete |
-| **E-Commerce** | UC-023, UC-024, UC-025, UC-026, UC-030, UC-036, UC-037 | Complete |
+| **E-Commerce** | UC-023, UC-024, UC-025, UC-026, UC-030, UC-036, UC-037, UC-043 | Complete |
 | **POS** | UC-021, UC-022 | Complete |
 | **Analytics** | UC-014 | Complete |
 | **Security / Auth** | UC-027 | Complete |

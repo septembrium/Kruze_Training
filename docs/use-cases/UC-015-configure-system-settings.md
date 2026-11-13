@@ -15,7 +15,7 @@ The admin maintains the reference data and configuration values that govern how 
 
 ## Main Flow
 1. The admin requests an overview of system settings.
-2. The system presents the available configuration sections: suppliers, VAT classes, product types, product subtypes, product units, product locations, inventory statuses, Boeren en Buren product mappings, roast configurations, announcements, grind sizes, and shipping.
+2. The system presents the available configuration sections: suppliers, VAT classes, product types, product subtypes, product units, product locations, inventory statuses, Boeren en Buren product mappings, roast configurations, announcements, grind sizes, shipping, and WhatsApp contact.
 3. The admin selects a configuration section.
 4. The system presents the current entries for that section, showing the columns described in the Reference Data Sections table below.
 5. The admin indicates they want to add a new entry.
@@ -30,11 +30,13 @@ The admin maintains the reference data and configuration values that govern how 
 - **AF-3: Assign an Image to a Product Type** -- At step 7, while providing details for a product type, the admin also provides an image. The system stores the image and associates it with the product type. The flow continues at step 8.
 - **AF-4: Set the Free Shipping Threshold** -- At step 4, while viewing the shipping section, the admin changes the minimum order amount that qualifies for free shipping. The system records the new threshold. The flow continues at step 8.
 - **AF-5: Reorder Entries** -- At step 4, for sections that support ordering (product types, announcements, grind sizes), the admin changes the sort order of entries. The system records the new order. The flow continues at step 8.
+- **AF-6: Configure WhatsApp Contact** -- At step 3, the admin selects the WhatsApp contact section. The system shows whether WhatsApp contact is switched on, the registered WhatsApp number, the default message, and the number of visitor contact requests (last 30 days and in total, split by footer and Contact page -- see UC-043). The admin changes the on/off setting, the number and/or the default message and confirms. The system verifies the information and records it; the storefront reflects the change immediately. The flow continues at step 9.
 
 ## Exception Flows
 - **EF-1: Referenced Entry Cannot Be Removed** -- During AF-2, when the system attempts to remove the entry, it detects that the entry is referenced by existing records (e.g., a product type assigned to products, a supplier linked to orders). The system informs the admin that the entry cannot be removed while it is in use. The entry remains unchanged.
 - **EF-2: Image Storage Failure** -- At step 8 of AF-3, the image cannot be stored. The system informs the admin that the upload failed. The product type remains without the new image.
 - **EF-3: Duplicate Entry** -- At step 8, the system detects that an entry with the same identifying value already exists (e.g., a grind size name or postal code that is already registered). The system informs the admin of the conflict. The entry is not recorded.
+- **EF-4: Invalid WhatsApp Settings** -- At AF-6, the system detects that the WhatsApp number is not in valid international format, that WhatsApp contact is switched on without a number, or that the default message is too long. The system informs the admin which value is invalid. The previous settings remain unchanged.
 
 ## Postconditions
 - The reference data is recorded and immediately available across all system interfaces (admin, POS, storefront).
@@ -46,6 +48,9 @@ The admin maintains the reference data and configuration values that govern how 
 - **BR-4:** Each product subtype must be linked to an existing product type.
 - **BR-5:** Each roast configuration must link a green coffee product to a roasted coffee product; both must exist.
 - **BR-6:** VAT class percentage is required and must be a valid decimal value.
+- **BR-7:** The WhatsApp number must be in international format: country code followed by digits only, 8 to 15 digits in total (e.g., 32497974437).
+- **BR-8:** WhatsApp contact can only be switched on when a valid WhatsApp number is registered.
+- **BR-9:** The WhatsApp default message is required when WhatsApp contact is switched on and may not exceed 500 characters.
 
 ## Presentation Guidelines
 - **PG-1:** Product types with homepage display enabled and their sort order control the storefront homepage category presentation.
@@ -68,6 +73,7 @@ The admin maintains the reference data and configuration values that govern how 
 | Grind Sizes | ID, name, sort order | Name, sort order |
 | Shipping -- Free Shipping Threshold | (single value) | Minimum order amount (incl. VAT) |
 | Shipping -- Free Shipping Postal Codes | Postal code, city | Postal code, city (optional) |
+| WhatsApp Contact | (single set of values) on/off, number, default message, contact requests (30 days / total, per source) | On/off, WhatsApp number, default message |
 
 ## Implementation Notes
 - Product type images are stored in cloud object storage; the system manages references to those assets.
@@ -75,6 +81,7 @@ The admin maintains the reference data and configuration values that govern how 
 - Roast configurations (green-roasted coffee mappings) define which green coffee maps to which roasted coffee, used during roast recording (UC-012).
 - Payment methods and sales statuses are stored as reference tables but are currently not editable through this settings area -- they are read-only lookups consumed by sales and POS features.
 - The free shipping threshold is stored as a system parameter (`free_shipping_threshold_incl_vat`).
+- WhatsApp contact settings are stored as system parameters (`whatsapp_enabled`, `whatsapp_number`, `whatsapp_default_message`); the contact request count comes from the anonymous click records of UC-043.
 - Suppliers managed here are the same supplier records used in supplier orders (UC-009).
 
 ## Implemented By
