@@ -66,6 +66,3 @@
 
 ## New Dependencies to Check
 - QR code rendering (9.2.1) and camera QR scanning (9.2.4): no library in `package.json` today; run `npm audit` first. A keyboard-wedge USB scanner may need none.
-
-## Cleanup Note
-`story-9.1.4-points-balance-history.md` and `story-9.2.2-pos-member-identification.md` are superseded stubs and must be removed with `git rm`.
