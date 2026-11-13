@@ -36,10 +36,10 @@ From the most-ordered products section, the registered user adds a previously pu
 The registered user chooses to sign out. The system ends the session and returns the user to the public storefront. See UC-027 for the full logout flow.
 
 ### AF-5: Loyalty Points *(planned, see UC-032)*
-The registered user opens the loyalty section of the account page. The system shows: the current points balance; the points history, newest first, with per entry the date, channel (webshop or POS), sale reference, and points (+ earned, - reversed); and the personal member code, shown both as a QR code and as text. Points are earned as described in UC-032.
+From step 2, the registered user opens their loyalty points. The system shows: the current points balance; the points history, newest first, with per entry the date, channel (webshop or POS), sale reference, and points earned (always positive in v1); and the personal member code, shown both as a QR code and as text. Points are earned as described in UC-032. The flow ends.
 
 ### AF-6: Customer Record at First Sign-In *(planned, see UC-032)*
-The first time a registered user signs in, the system links the account to a customer record, matching an existing one or adding a new one, so every account holder is immediately a loyalty member. Previously this happened only on the first profile save.
+At sign-in (UC-027), the first time the registered user signs in, the system links the account to a customer record by matching the email address. If several records match, the system links the one with the most recent sale, or the most recently added record if none has sales. If none match, the system adds a new customer record. Every account holder is therefore a loyalty member immediately. If the matched record is a B2B client, the account is linked but earns no points (UC-032 BR-5). The flow ends.
 
 ## Exception Flows
 - **EF-1: Validation Error** — A submitted profile field contains invalid data (e.g., empty required field). The system highlights the field and shows a descriptive error message. The profile is not saved.

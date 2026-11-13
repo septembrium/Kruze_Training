@@ -52,7 +52,7 @@ Allows the admin to record new sales and manage existing ones. Sales capture the
 - **BR-5:** Discounts can be applied at the sale level as a percentage or fixed amount.
 - **BR-6:** Sale numbers are assigned sequentially per year by the system.
 - **BR-7:** Invoice numbers are automatically assigned to B2B sales, sequentially per year. B2C sales do not receive an invoice number.
-- **BR-8:** A sale that has been marked as paid cannot be edited or removed.
+- **BR-8:** A sale that has been marked as paid cannot be edited, removed, or have its status changed.
 - **BR-9:** Sale status cannot be changed backwards in the lifecycle.
 
 ## Related Use Cases

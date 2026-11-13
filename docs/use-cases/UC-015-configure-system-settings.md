@@ -15,7 +15,7 @@ The admin maintains the reference data and configuration values that govern how 
 
 ## Main Flow
 1. The admin requests an overview of system settings.
-2. The system presents the available configuration sections: suppliers, VAT classes, product types, product subtypes, product units, product locations, inventory statuses, Boeren en Buren product mappings, roast configurations, announcements, grind sizes, and shipping.
+2. The system presents the available configuration sections: suppliers, VAT classes, product types, product subtypes, product units, product locations, inventory statuses, Boeren en Buren product mappings, roast configurations, announcements, grind sizes, shipping, and loyalty.
 3. The admin selects a configuration section.
 4. The system presents the current entries for that section, showing the columns described in the Reference Data Sections table below.
 5. The admin indicates they want to add a new entry.
@@ -30,7 +30,7 @@ The admin maintains the reference data and configuration values that govern how 
 - **AF-3: Assign an Image to a Product Type** -- At step 7, while providing details for a product type, the admin also provides an image. The system stores the image and associates it with the product type. The flow continues at step 8.
 - **AF-4: Set the Free Shipping Threshold** -- At step 4, while viewing the shipping section, the admin changes the minimum order amount that qualifies for free shipping. The system records the new threshold. The flow continues at step 8.
 - **AF-5: Reorder Entries** -- At step 4, for sections that support ordering (product types, announcements, grind sizes), the admin changes the sort order of entries. The system records the new order. The flow continues at step 8.
-- **AF-6: Set the Loyalty Earn Rate** *(planned, see UC-032)* -- At step 4, while viewing the loyalty section, the admin changes the earn rate, expressed as points per EUR 1. The system records the new rate. A new rate applies only to sales paid after the change; points already awarded are not recalculated. The flow continues at step 8.
+- **AF-6: Set the Loyalty Earn Rate** *(planned, see UC-032)* -- At step 4, while viewing the loyalty section (see the Reference Data Sections table), the admin changes the earn rate, expressed as points per EUR 1. The system records the new rate. A new rate applies only to sales paid after the change; points already awarded are not recalculated. The flow continues at step 8.
 
 ## Exception Flows
 - **EF-1: Referenced Entry Cannot Be Removed** -- During AF-2, when the system attempts to remove the entry, it detects that the entry is referenced by existing records (e.g., a product type assigned to products, a supplier linked to orders). The system informs the admin that the entry cannot be removed while it is in use. The entry remains unchanged.
@@ -47,6 +47,7 @@ The admin maintains the reference data and configuration values that govern how 
 - **BR-4:** Each product subtype must be linked to an existing product type.
 - **BR-5:** Each roast configuration must link a green coffee product to a roasted coffee product; both must exist.
 - **BR-6:** VAT class percentage is required and must be a valid decimal value.
+- **BR-7:** The loyalty earn rate must be a positive value; it may be fractional (e.g., 0.5).
 
 ## Presentation Guidelines
 - **PG-1:** Product types with homepage display enabled and their sort order control the storefront homepage category presentation.
@@ -69,6 +70,7 @@ The admin maintains the reference data and configuration values that govern how 
 | Grind Sizes | ID, name, sort order | Name, sort order |
 | Shipping -- Free Shipping Threshold | (single value) | Minimum order amount (incl. VAT) |
 | Shipping -- Free Shipping Postal Codes | Postal code, city | Postal code, city (optional) |
+| Loyalty -- Earn Rate | (single value) | Points per EUR 1 |
 
 ## Implementation Notes
 - Product type images are stored in cloud object storage; the system manages references to those assets.
