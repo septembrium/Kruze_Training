@@ -30,7 +30,7 @@ The admin maintains the reference data and configuration values that govern how 
 - **AF-3: Assign an Image to a Product Type** -- At step 7, while providing details for a product type, the admin also provides an image. The system stores the image and associates it with the product type. The flow continues at step 8.
 - **AF-4: Set the Free Shipping Threshold** -- At step 4, while viewing the shipping section, the admin changes the minimum order amount that qualifies for free shipping. The system records the new threshold. The flow continues at step 8.
 - **AF-5: Reorder Entries** -- At step 4, for sections that support ordering (product types, announcements, grind sizes), the admin changes the sort order of entries. The system records the new order. The flow continues at step 8.
-- **AF-6: Configure WhatsApp Contact** -- At step 3, the admin selects the WhatsApp contact section. The system shows the on/off setting, the WhatsApp number and the default message, and, as read-only information, the number of visitor contact requests over the last 30 days and in total, per source (footer, Contact page -- see UC-043). The admin changes the on/off setting, the number and/or the default message and confirms. The system verifies the information and records it; the storefront shows the new settings from the next page visit. The flow continues at step 9.
+- **AF-6: Configure WhatsApp Contact** -- At step 3, the admin selects the WhatsApp contact section. The system shows the on/off setting, the WhatsApp number and the default message, and, as read-only information, the number of visitor contact requests over the last 30 days and in total, per source (footer, Contact page -- see UC-043). The admin changes the on/off setting, the number and/or the default message and confirms. The system verifies the information and records it; the storefront shows the new settings on the visitor's next page load. The flow continues at step 9.
 
 ## Exception Flows
 - **EF-1: Referenced Entry Cannot Be Removed** -- During AF-2, when the system attempts to remove the entry, it detects that the entry is referenced by existing records (e.g., a product type assigned to products, a supplier linked to orders). The system informs the admin that the entry cannot be removed while it is in use. The entry remains unchanged.
@@ -39,7 +39,7 @@ The admin maintains the reference data and configuration values that govern how 
 - **EF-4: Invalid WhatsApp Settings** -- When the admin confirms the changes in AF-6, the system detects that the WhatsApp number is not a valid international number, that WhatsApp contact is switched on without a number or without a default message, or that the default message exceeds 500 characters. The system informs the admin which value is invalid. The previous settings remain unchanged.
 
 ## Postconditions
-- The reference data is recorded and immediately available across all system interfaces (admin, POS, storefront).
+- The reference data is recorded and immediately available across all system interfaces (admin, POS, storefront); for WhatsApp contact, from the visitor's next page load.
 
 ## Business Rules
 - **BR-1:** Reference data entries that are referenced by existing records (products, sales, orders, inventory items) cannot be removed.
@@ -87,7 +87,7 @@ The admin maintains the reference data and configuration values that govern how 
 
 ## Implemented By
 - Routes: `/api/settings/suppliers` (GET, POST, PATCH, DELETE), `/api/settings/vat-classes` (GET, POST, PATCH, DELETE), `/api/settings/product-types` (GET, POST, PATCH, DELETE), `/api/settings/product-types/:id/image` (POST), `/api/settings/product-subtypes` (GET, POST, PATCH, DELETE), `/api/settings/product-units` (GET, POST, PATCH, DELETE), `/api/settings/product-locations` (GET, POST, PATCH, DELETE), `/api/settings/product-statuses` (GET, POST, PATCH, DELETE), `/api/settings/roast-configurations` (GET, POST, PATCH, DELETE), `/api/settings/announcements` (GET, POST, PATCH, DELETE), `/api/settings/grind-sizes` (GET, POST, PATCH, DELETE), `/api/settings/free-shipping-postal-codes` (GET, POST, DELETE), `/api/settings/shipping-params` (GET, POST), `/api/settings/payment-methods` (GET), `/api/settings/sales-statuses` (GET), `/api/boeren-import/mappings` (GET), `/api/boeren-import/save-mapping` (POST), `/api/boeren-import/mappings/:reference` (DELETE)
-- WhatsApp contact (AF-6): Not yet implemented -- see UC-043
 - Services: `server/parameterService.ts` (for free shipping threshold)
 - Components: `client/src/pages/admin/Settings.tsx`
 - Storage: CRUD methods in `server/storage.ts` for each entity (suppliers, vatClasses, productTypes, productSubtypes, productUnits, productLocations, productItemStatuses, greenRoastedCoffees, announcements, grindSizes, freeShippingPostalCodes)
+- WhatsApp contact (AF-6): Not yet implemented -- see UC-043

@@ -1,6 +1,6 @@
 # UC-043: Contact KRUZE via WhatsApp
 
-A webshop visitor starts a WhatsApp conversation with KRUZE straight from the storefront contact details, with a ready-made opening message. This gives visitors a low-threshold, familiar way to ask questions, and gives the business owner an anonymous count of how often the channel is used.
+A webshop visitor starts a WhatsApp conversation with KRUZE straight from the storefront contact details, with a ready-made opening message. This gives visitors a low-threshold, familiar way to ask questions, and gives the admin an anonymous count of how often the channel is used.
 
 ## Metadata
 - **Domain:** Storefront / Customer Contact
@@ -30,11 +30,11 @@ None. The system cannot detect what happens inside WhatsApp after step 5.
 
 ## Postconditions
 - WhatsApp is open on the visitor's device, addressed to KRUZE, with the default message ready to send.
-- One anonymous contact request is counted for the admin.
+- One anonymous contact request is counted for the admin, unless the limit in BR-2 applies.
 
 ## Business Rules
 - **BR-1:** A recorded contact request contains only the date and time and whether it came from the footer or the Contact page. Nothing that identifies the visitor is kept.
-- **BR-2:** No more than 5 contact requests from the same visitor are counted within 10 minutes; further requests in that window are not counted, but WhatsApp still opens.
+- **BR-2:** No more than 5 contact requests from the same source are counted within 10 minutes; further requests in that window are not counted, but WhatsApp still opens.
 
 ## Presentation Guidelines
 - **PG-1:** The WhatsApp invitation is only shown when WhatsApp contact is switched on and a number is registered; otherwise the contact details appear exactly as before, without any WhatsApp mention.
@@ -43,13 +43,13 @@ None. The system cannot detect what happens inside WhatsApp after step 5.
 
 ## Implementation Notes
 - Configuration lives in the existing `parameter_table` (see UC-015, AF-6): `whatsapp_enabled`, `whatsapp_number`, `whatsapp_default_message`.
-- A public, unauthenticated endpoint exposes the configuration only when enabled and a number is set; otherwise it returns a disabled state. Never expose any other parameter through it.
+- A public, unauthenticated endpoint exposes the configuration only when enabled and a number is set; otherwise it returns a disabled state.
 - The public configuration endpoint reads exactly the three whatsapp_* parameters by name via parameterService.getParameter; never use getAllParameters (it would expose e.g. accounting_email).
 - parameter_value is NOT NULL text: store the toggle as 'true'/'false' and empty values as ''. Parameter names are matched case-insensitively.
 - Link format: `https://wa.me/<digits-only international number>?text=<URL-encoded default message>`, with `target="_blank"` and `rel="noopener noreferrer"`.
 - Click recording uses a public endpoint with a new table (e.g., `whatsapp_contact_click`: id, clicked_at, source ∈ {`footer`, `contact_page`}). Any other source value is rejected.
 - Failing to record a contact request must never prevent the visitor from reaching WhatsApp. Send the request fire-and-forget (e.g., `navigator.sendBeacon`) so navigation is never blocked.
-- Rate limiting is 5 requests per 10 minutes per IP (BR-2). Rate limiting uses the IP address in memory only and never persists it.
+- Rate limiting is 5 requests per 10 minutes per IP (BR-2).
 - Privacy decision (accepted by the owner, 2026-11-13): because nothing identifying is stored or placed on the visitor's device, visitor consent (UC-037) is not requested. Rate limiting uses the IP address in memory only and never persists it.
 - On devices without the WhatsApp app, wa.me falls back to WhatsApp Web; no extra handling needed.
 - The count measures contact intent (clicks), not delivered messages; a visitor without a WhatsApp account is still counted.

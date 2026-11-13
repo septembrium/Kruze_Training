@@ -53,7 +53,7 @@ This directory contains the structured use case documentation for the KRUZE Coff
 | [UC-012](UC-012-create-coffee-roasts.md) | Create Coffee Roasts | Operations / Inventory | Must | Approved |
 | [UC-013](UC-013-inventory-counting-session.md) | Conduct Inventory Counting Session | Inventory / Operations | Must | Approved |
 | [UC-014](UC-014-view-analytics-dashboard.md) | View Analytics Dashboard | Finance / Analytics | Must | Approved |
-| [UC-015](UC-015-configure-system-settings.md) | Configure System Settings and Reference Data | Operations / Config | Must | Approved |
+| [UC-015](UC-015-configure-system-settings.md) | Configure System Settings and Reference Data | Operations / Config | Must | Approved (WhatsApp extension Draft) |
 | [UC-016](UC-016-manage-product-blends.md) | Manage Product Blends and Components | Product / Operations | Should | Approved |
 | [UC-017](UC-017-import-supplier-data.md) | Import Supplier Data (Boeren en Buren) | Inventory / Procurement | Should | Approved |
 | [UC-018](UC-018-generate-accounting-reports.md) | Generate Accounting Reports | Finance / Reporting | Must | Approved |
