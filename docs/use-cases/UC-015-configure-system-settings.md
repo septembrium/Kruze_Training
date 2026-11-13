@@ -30,6 +30,7 @@ The admin maintains the reference data and configuration values that govern how 
 - **AF-3: Assign an Image to a Product Type** -- At step 7, while providing details for a product type, the admin also provides an image. The system stores the image and associates it with the product type. The flow continues at step 8.
 - **AF-4: Set the Free Shipping Threshold** -- At step 4, while viewing the shipping section, the admin changes the minimum order amount that qualifies for free shipping. The system records the new threshold. The flow continues at step 8.
 - **AF-5: Reorder Entries** -- At step 4, for sections that support ordering (product types, announcements, grind sizes), the admin changes the sort order of entries. The system records the new order. The flow continues at step 8.
+- **AF-6: Set the Loyalty Earn Rate** *(planned, see UC-032)* -- At step 4, while viewing the loyalty section, the admin changes the earn rate, expressed as points per EUR 1. The system records the new rate. A new rate applies only to sales paid after the change; points already awarded are not recalculated. The flow continues at step 8.
 
 ## Exception Flows
 - **EF-1: Referenced Entry Cannot Be Removed** -- During AF-2, when the system attempts to remove the entry, it detects that the entry is referenced by existing records (e.g., a product type assigned to products, a supplier linked to orders). The system informs the admin that the entry cannot be removed while it is in use. The entry remains unchanged.

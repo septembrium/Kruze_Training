@@ -26,6 +26,7 @@ The admin reviews a sale's complete information: invoice number, customer, dates
 - **AF-1: Advance to Shipped** — The admin indicates they want to advance the sale to shipped. The system changes the status and automatically records stock movements for all line items.
 - **AF-2: Advance to Invoiced** — The admin indicates they want to advance the sale to invoiced. If stock movements have not yet been recorded, the system asks the admin to confirm whether they should be recorded now. The system changes the status accordingly.
 - **AF-3: Advance to Paid** — The admin indicates they want to mark the sale as paid. The system changes the status. Once paid, the sale can no longer be edited or removed (UC-003 BR-8).
+- **AF-4: Move a Sale Away From Paid** *(planned, see UC-032 AF-4)* — The admin changes a paid sale to another status. If the sale earned loyalty points, the system reverses them in full; setting the sale back to paid awards them again (UC-032 AF-5).
 
 > The admin may also generate or send an invoice for this sale; that flow is owned by UC-008 (Invoice Customer).
 

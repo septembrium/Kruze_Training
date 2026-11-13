@@ -32,7 +32,7 @@ Allows the admin to record new sales and manage existing ones. Sales capture the
 
 ## Alternative Flows
 - **AF-1: Edit Sale** — The admin modifies an existing sale's details, line items, or customer. The admin may also toggle the stock updated and uploaded to accounting flags. The system applies the changes.
-- **AF-2: Remove Sale** — The admin removes a sale that is no longer needed. The system asks for confirmation before proceeding. This is not available for paid sales.
+- **AF-2: Remove Sale** — The admin removes a sale that is no longer needed. The system asks for confirmation before proceeding. This is not available for paid sales. *(Planned, see UC-032 EF-4: a sale that earned loyalty points is refused removal.)*
 - **AF-3: Record Sale from Customer Context** — Precondition: the admin indicated they want to record a sale for an identified customer (e.g., from UC-039). The system presents the sale form with the customer already selected and the sales channel already determined. The flow continues from step 2, skipping the customer selection (steps 3–4).
 
 ## Exception Flows

@@ -36,7 +36,10 @@ From the most-ordered products section, the registered user adds a previously pu
 The registered user chooses to sign out. The system ends the session and returns the user to the public storefront. See UC-027 for the full logout flow.
 
 ### AF-5: Loyalty Points *(planned, see UC-032)*
-The registered user sees their loyalty points balance, points history, and personal QR code / member code on the account page. See UC-032 for the behaviour.
+The registered user opens the loyalty section of the account page. The system shows: the current points balance; the points history, newest first, with per entry the date, channel (webshop or POS), sale reference, and points (+ earned, - reversed); and the personal member code, shown both as a QR code and as text. Points are earned as described in UC-032.
+
+### AF-6: Customer Record at First Sign-In *(planned, see UC-032)*
+The first time a registered user signs in, the system links the account to a customer record, matching an existing one or adding a new one, so every account holder is immediately a loyalty member. Previously this happened only on the first profile save.
 
 ## Exception Flows
 - **EF-1: Validation Error** — A submitted profile field contains invalid data (e.g., empty required field). The system highlights the field and shows a descriptive error message. The profile is not saved.
